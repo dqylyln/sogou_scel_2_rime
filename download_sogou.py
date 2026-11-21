@@ -150,9 +150,16 @@ def convert_scel_to_rime_dict():
     # 输出格式化的日期
     formatted_short_year_date = short_year_date.strftime('%y%m%d')
 
-    dict_file_name = 'sogou_dict_' + formatted_short_year_date + '.dict.yaml'
-    # 开始转换
-    convert.main(scel_dir, rime_dict_dir, dict_file_name)
+    dict_file_name = 'sogou_' + formatted_short_year_date + '.dict.yaml'
+    # 开始转换（v2 推荐参数：按词库拆分、裁剪到 4 字以内、组内 rank 权重）
+    convert.main(
+        scel_dir, rime_dict_dir, dict_file_name,
+        split_by_category=True,
+        max_len=4,
+        weight_mode="rank",
+        ascii_names=True,
+        import_prefix="packs",
+    )
 
 
 if __name__ == "__main__":
